@@ -1,0 +1,24 @@
+<% album = Album.includes(:tracks).includes(:band).find_by(id: params[:id]) %>
+<% tracks = album.tracks %>
+
+<%= link_to "Back to Band", band_url(album.band) %>
+
+<h1><%=album.name%></h1>
+<% if current_user.admin_status %>
+  <%= link_to "Edit", edit_album_url(album) %>
+  <%= link_to "Delete", album_url(album), method: :delete %>
+<% end %>
+
+<br>
+<h2>Tracks</h2>
+<ul>
+  <% if tracks.empty? %>
+    <h3>No tracks....</h3>
+  <%else%>
+  <% tracks.each do |track| %>
+    <li><%= link_to "#{track.name}", track_url(track) %><%= button_to 'Edit', edit_track_url(track), method: :get%> </li>
+    <% end %>
+  <% end %>
+</ul>
+
+<%= link_to "New Track", new_track_url%>

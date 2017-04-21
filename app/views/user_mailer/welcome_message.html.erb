@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <title>Activation Email</title>
+  </head>
+  <body>
+    <h1>Welcome to Cool Bands!</h1>
+    <p>Please activate your account at the following url: <%= link_to "Activate!!!", "localhost:3000/activation/#{@user.id}"%>
+
+  </body>
+</html>

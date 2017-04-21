@@ -1,0 +1,42 @@
+<% albums = Album.all %>
+<% if action == :new %>
+  <% action_url = tracks_url %>
+<% elsif action == :edit %>
+  <% action_url = track_url %>
+<% end %>
+<form action="<%= action_url %>" method="post">
+  <%= auth_token %>
+  <% if action == :edit %>
+    <input type="hidden" name="_method" value="PATCH">
+  <% end %>
+  <label for="track">Track Name</label>
+  <br>
+  <input id="track" type="text" name="track[name]" value="<%=track.name%>">
+
+  <br>
+
+  <label for="album">Album</label>
+  <br>
+  <select id="album" name="track[album_id]">
+    <option disabled selected>--Please Select Album--</option>
+      <% albums.each do |album|%>
+        <option <%= track.album_id == album.id ? "selected" : "" %> value="<%= album.id %>"><%= album.name %></option>
+      <% end %>
+  </select>
+
+  <br>
+  <label for="track_type">Track Type</label>
+  <br>
+
+  Bonus<input <%=track.bonus ? "checked" : ""%> type="radio" name="track[bonus]" value="true">
+  Regular<input <%=track.bonus ? "" : "checked"%> type="radio" name="track[bonus]" value="false">
+
+
+  <br>
+  <label for="lyrics">Lyrics</label>
+  <br>
+  <textarea id="lyrics" name="track[lyrics]" rows="8" cols="80"><%=track.lyrics%></textarea>
+
+  <br>
+
+  <input type="submit">

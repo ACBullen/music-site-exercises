@@ -1,0 +1,24 @@
+<% track = Track.includes(:album).find_by(id: params[:id]) %>
+
+<br>
+
+<%= link_to "Back to Album", album_url(track.album) %>
+
+<br>
+
+<h1><%= track.name %></h1>
+<% if current_user.admin_status %>
+  <%= link_to "Edit", edit_track_url(track) %>
+  <%= link_to "Delete", track_url(track), method: :delete %>
+<% end %>
+<h3><%= track.album.name %></h3>
+<h4> <%= "Bonus Track" if track.bonus %> </h4>
+<br>
+</br>
+<h3>Lyrics:</h3>
+<p> <pre><%= ugly_lyrics(track.lyrics) %></pre> </p>
+<% @note = track.notes %>
+
+<h2>Notes:</h2>
+<%= render @note %>
+<%= render "notes/form", track: track%>
